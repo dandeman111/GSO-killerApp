@@ -1,19 +1,48 @@
 package Models;
 
-import java.util.Date;
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Random;
 
 /**
- * Created by Danny on 30-5-2017.
+ * Created by dande on 9-6-2017.
  */
-public class Match {
+public class Match implements Serializable{
     private int id;
-    private Date plannedMatchDate;
+    private LocalDate date;
     private boolean hostWon;
+    public User hostUser;
+    public User joinedUser;
+    public String title;
 
-    public Match(int id, Date date) {
-        this.id = id;
-        this.plannedMatchDate = date;
+    public Match(LocalDate date, User hostUser,String title) {
+        this.date = date;
+        this.hostUser = hostUser;
+        this.title = title;
+        Random r = new Random();
+        this.id  = r.nextInt(100000000);
     }
 
+    public Match(int id, LocalDate date, User host) {
+        this.id = id;
+        this.date = date;
+        this.hostUser = host;
 
+    }
+    public boolean equals(Match match){
+        if(match.id == this.id){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String toString(){
+        return title +" id: "+ Integer.toString(id);
+    }
 }

@@ -1,22 +1,29 @@
 package Models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.Serializable;
 
 /**
- * Created by Danny on 30-5-2017.
+ * Created by dande on 9-6-2017.
  */
-public class User {
-    private String gamerTag;
-    private String passWord;
-    private List<Match> hostedMatches;
-    private List<Match> joinedMatches;
+public class User implements Serializable {
+    private String gamertag;
+    private String password;
 
-    public User(String gamerTag, String passWord) {
-        this.gamerTag = gamerTag;
-        this.passWord = passWord;
-        this.hostedMatches = new ArrayList<>();
-        this.joinedMatches = new ArrayList<>();
+    public User(String gamertag, String password) {
+        this.gamertag = gamertag;
+        this.password = password;
     }
 
+    public User(String gamertag) {
+        this.gamertag = gamertag;
+    }
+    @Override
+    public String toString(){
+        return this.gamertag;
+    }
+
+    public boolean equals(User user){
+        if(user.gamertag.equalsIgnoreCase(this.gamertag) && user.password.equalsIgnoreCase( this.password))return true;
+        else return false;
+    }
 }
