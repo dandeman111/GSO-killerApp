@@ -1,23 +1,25 @@
 package Models;
 
+import java.io.Serializable;
+
 /**
  * Created by Danny on 30-5-2017.
  */
-public class RuleSet {
-    private String format;
+public class RuleSet implements Serializable{
+    private boolean wildFormat;
     private String Extra;
 
-    public RuleSet(String format, String extra) {
-        this.format = format;
+    public RuleSet(boolean wildFormat, String extra)  {
+        this.wildFormat = wildFormat;
         Extra = extra;
     }
 
-    public String getFormat() {
-        return format;
+    public boolean getFormat() {
+        return wildFormat;
     }
 
-    public void setFormat(String format) {
-        this.format = format;
+    public void setFormat(boolean wildFormat) {
+        this.wildFormat = wildFormat;
     }
 
     public String getExtra() {

@@ -45,4 +45,16 @@ public class Match implements Serializable{
     public String toString(){
         return title +" id: "+ Integer.toString(id);
     }
+
+    public User getJoinedUser() {
+        return joinedUser;
+    }
+
+    public void setJoinedUser(User joinedUser) {
+        this.joinedUser = joinedUser;
+    }
+
+    public User getHostUser() {
+        return hostUser;
+    }
 }

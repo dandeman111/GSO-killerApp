@@ -35,7 +35,7 @@
       </AnchorPane>
    </top>
    <center>
-      <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+      <TabPane fx:id="gen_tpFinder" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
           <Tab text="Looking for match">
             <content>
@@ -60,13 +60,13 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Rules">
+          <Tab fx:id="gen_tabRules" text="Rules">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <Pane layoutX="62.0" layoutY="25.0" prefHeight="495.0" prefWidth="471.0">
                            <children>
-                              <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your rules proposal:">
+                              <Text fx:id="rp_txtHostMessage" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Host ruleEvent proposal">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
@@ -79,13 +79,13 @@
                         </Pane>
                         <Pane layoutX="600.0" layoutY="25.0" prefHeight="495.0" prefWidth="471.0">
                            <children>
-                              <Text layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Their rules proposal">
+                              <Text fx:id="rp_txtJoinedMessage" layoutX="14.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Joined ruleEvent proposal">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Text>
                               <Button fx:id="rp_btnProposeYour" layoutX="382.0" layoutY="450.0" mnemonicParsing="false" text="Propose" />
-                              <TextArea fx:id="rp_tfExtraYour" layoutX="16.0" layoutY="230.0" prefHeight="197.0" prefWidth="439.0" />
+                              <TextArea fx:id="rp_tfExtraTheir" layoutX="16.0" layoutY="230.0" prefHeight="197.0" prefWidth="439.0" />
                               <Text layoutX="16.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Extra" wrappingWidth="46.40234375" />
                               <RadioButton fx:id="rp_rbWildformatTheir" layoutX="16.0" layoutY="157.0" mnemonicParsing="false" text="Wild format" />
                            </children>

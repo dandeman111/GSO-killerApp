@@ -1,7 +1,6 @@
 package Rmi;
 
 import Models.Match;
-import Models.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,7 +8,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.time.LocalDate;
 
 /**
  * Created by dande on 14-6-2017.
@@ -31,19 +29,30 @@ public class RmiController {
     public MatchFinder getMatchFinder(){
 
         Registry r1;
-        try {
-            r1 = LocateRegistry.getRegistry(ipAdress,portnumber);
-            return (MatchFinder) r1.lookup(bindingName);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        } catch (NotBoundException e) {
-            e.printStackTrace();
-        }
+
+            try {
+                r1 = LocateRegistry.getRegistry(ipAdress,portnumber);
+                return (MatchFinder) r1.lookup(bindingName);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            } catch (NotBoundException e) {
+                e.printStackTrace();
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e1) {
+
+                    e1.printStackTrace();
+                }
+            }
+
+
+
+
         return null;
     }
-    public boolean addMatch(LocalDate date, User user, String title){
+    public boolean addMatch(Match m){
         try {
-            matchFinder.addMatch(new Match(date,user,title));
+            matchFinder.addMatch(m);
             return true;
         } catch (RemoteException e) {
             e.printStackTrace();
