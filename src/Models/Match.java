@@ -14,6 +14,7 @@ public class Match implements Serializable{
     public User hostUser;
     public User joinedUser;
     public String title;
+    public RuleSet finalRuleSet;
 
     public Match(LocalDate date, User hostUser,String title) {
         this.date = date;
@@ -29,6 +30,13 @@ public class Match implements Serializable{
         this.hostUser = host;
 
     }
+
+    public Match(int id, User hostUser, String title) {
+        this.id = id;
+        this.hostUser = hostUser;
+        this.title = title;
+    }
+
     public boolean equals(Match match){
         if(match.id == this.id){
             return true;

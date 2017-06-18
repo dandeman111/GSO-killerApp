@@ -1,6 +1,7 @@
 package Rmi;
 
 import Models.Match;
+import Rmi.RmiRemoteServer.MatchFinder;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -83,6 +84,13 @@ public class RmiController {
         }
         return null;
 
+    }
+    public void removeMatch(Match match){
+        try {
+            matchFinder.removeMatch(match);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 }
 

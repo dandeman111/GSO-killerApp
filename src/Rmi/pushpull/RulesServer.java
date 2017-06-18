@@ -1,6 +1,6 @@
 package Rmi.pushpull;
 
-import Rmi.MatchFinder;
+import Rmi.RmiRemoteServer.MatchFinder;
 import fontyspublisher.RemotePublisher;
 
 import java.rmi.RemoteException;

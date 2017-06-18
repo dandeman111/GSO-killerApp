@@ -1,4 +1,4 @@
-package Rmi;
+package Rmi.RmiRemoteServer;
 
 import Models.Match;
 import Models.User;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by dande on 9-6-2017.
  */
-public class RmiMatchFinder extends UnicastRemoteObject implements MatchFinder{
+public class RmiMatchFinder extends UnicastRemoteObject implements MatchFinder {
     private List<Match> matches;
 
     public RmiMatchFinder() throws RemoteException{

@@ -1,4 +1,4 @@
-package Rmi;
+package Rmi.RmiRemoteServer;
 
 import Models.Match;
 import Models.User;

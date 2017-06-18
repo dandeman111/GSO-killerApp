@@ -191,6 +191,7 @@ public class MainScreen {
                     currentmatch.setJoinedUser(userDataController.getUser());
                     ruleController = new RuleController(currentmatch.toString(),mainscreen);
                     ruleChangeBroadcast(currentmatch,null);
+                    rmiController.removeMatch(currentmatch); //verwijdert match uit de lijst als er gejoined word
                     updateGui();
                     System.out.println("Joined game: "+ currentmatch.toString());
                 }
