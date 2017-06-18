@@ -45,8 +45,8 @@ public class RuleController {
         System.out.println("rules have changed");
     }
 
-    public void broadcastRuleChange(String property, RuleSet hostRuleset, RuleSet joinedRuleset, User user){
-        RuleEvent ruleEvent = new RuleEvent(hostRuleset,joinedRuleset,user);
+    public void broadcastRuleChange(String property, RuleSet hostRuleset, RuleSet joinedRuleset,RuleSet finalRuleset, User user){
+        RuleEvent ruleEvent = new RuleEvent(hostRuleset,joinedRuleset,finalRuleset,user);
         ruleComunicator.broadcast(property,ruleEvent);
     }
 

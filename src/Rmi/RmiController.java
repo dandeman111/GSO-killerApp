@@ -67,5 +67,22 @@ public class RmiController {
         }
         return null;
     }
+    public ObservableList<Match> getAvailableMatches(){
+        ObservableList<Match> matches;
+        try {
+            matches = FXCollections.observableList(matchFinder.getMatches());
+
+            for (Match m :matches) {
+                if(m.joinedUser != null){
+                    matches.remove(m);
+                }
+            }
+            return matches;
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+        return null;
+
+    }
 }
 

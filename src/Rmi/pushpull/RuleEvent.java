@@ -16,10 +16,11 @@ public class RuleEvent implements Serializable {
         private User joined;
 
 
-    public RuleEvent(RuleSet yourRuleset, RuleSet joinedRuleSet, User host) {
+    public RuleEvent(RuleSet yourRuleset, RuleSet joinedRuleSet,RuleSet finalRuleSet ,User host) {
         this.hostRuleSet = yourRuleset;
         this.joinedRuleSet = joinedRuleSet;
         this.host = host;
+        this.finalRuleSet = finalRuleSet;
     }
 
     public RuleSet getHostRuleset() {
@@ -59,5 +60,6 @@ public class RuleEvent implements Serializable {
     public void setJoined(User joined) {
         this.joined = joined;
     }
+
 }
 

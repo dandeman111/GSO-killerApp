@@ -29,4 +29,11 @@ public class RuleSet implements Serializable{
     public void setExtra(String extra) {
         Extra = extra;
     }
+
+    public boolean equals(RuleSet ruleSet){
+        if(this.wildFormat ==ruleSet.wildFormat&&this.getExtra() ==ruleSet.getExtra()){
+            return true;
+        }
+        return false;
+    }
 }

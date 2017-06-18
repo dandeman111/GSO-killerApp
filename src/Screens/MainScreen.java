@@ -76,6 +76,17 @@ public class MainScreen {
     @FXML
     private Button lgn_btnLogin;
 
+    @FXML
+    private RadioButton rp_rbWildformatAgreed;
+
+
+    @FXML
+    private Button rp_btnAcceptFinal;
+
+
+    @FXML
+    private TextArea rp_tfExtraAgreed;
+
     private RmiController rmiController;
     private UserDataController userDataController;
     private RuleController ruleController;
@@ -90,6 +101,9 @@ public class MainScreen {
     void initialize() {
         mainscreen = this;
         //deze controller is gemaakt met behulp van de tools in scenebuilder
+        assert rp_tfExtraAgreed != null : "fx:id=\"rp_tfExtraAgreed\" was not injected: check your FXML file 'MainScreen.fxml'.";
+        assert rp_rbWildformatAgreed != null : "fx:id=\"rp_rbWildformatAgreed\" was not injected: check your FXML file 'MainScreen.fxml'.";
+        assert rp_btnAcceptFinal != null : "fx:id=\"rp_btnAcceptFinal\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert lfm_btnJoinGame != null : "fx:id=\"lfm_btnJoinGame\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert rp_txtJoinedMessage != null : "fx:id=\"rp_txtJoinedMessage\" was not injected: check your FXML file 'MainScreen.fxml'.";
         assert rp_txtHostMessage != null : "fx:id=\"rp_txtHostMessage\" was not injected: check your FXML file 'MainScreen.fxml'.";
@@ -153,7 +167,7 @@ public class MainScreen {
                     rmiController.addMatch(currentmatch);
                     ruleController = new RuleController(currentmatch.toString(),mainscreen);
 
-                    ruleChangeBroadcast(currentmatch);
+                    ruleChangeBroadcast(currentmatch,null);
                     updateGui();
 
                     System.out.println("Hosted game: "+ currentmatch.toString());
@@ -176,28 +190,43 @@ public class MainScreen {
                     currentmatch = lfm_lvGames.getSelectionModel().getSelectedItem();
                     currentmatch.setJoinedUser(userDataController.getUser());
                     ruleController = new RuleController(currentmatch.toString(),mainscreen);
-                    ruleChangeBroadcast(currentmatch);
+                    ruleChangeBroadcast(currentmatch,null);
                     updateGui();
                     System.out.println("Joined game: "+ currentmatch.toString());
                 }
             }
         });
         rp_tfExtraYour.textProperty().addListener((observable, oldValue, newValue) ->{
-            ruleChangeBroadcast(currentmatch);
+            ruleChangeBroadcast(currentmatch,null);
             updateGui();
         });
         rp_rbWildformatYour.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                ruleChangeBroadcast(currentmatch);
+                ruleChangeBroadcast(currentmatch,null);
                 updateGui();
+            }
+        });
+
+        rp_btnProposeYour.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                ruleChangeBroadcast(currentmatch,new RuleSet(rp_rbWildformatYour.isSelected(),rp_tfExtraYour.getText()));
+                updateGui();
+            }
+        });
+        rp_btnAcceptFinal.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                rp_tfExtraYour.setText(rp_tfExtraAgreed.getText());
+                rp_rbWildformatYour.setSelected(rp_rbWildformatAgreed.isSelected());
             }
         });
 
     }
 
     private void updateGui(){
-        lfm_lvGames.setItems(rmiController.getMatches());
+        lfm_lvGames.setItems(rmiController.getAvailableMatches());
         if(userDataController.getUser() != null ){
             rp_txtHostMessage.setText(userDataController.getUser().toString()+"'s Rules");
         }
@@ -213,7 +242,7 @@ public class MainScreen {
 
 
     }
-    private void ruleChangeBroadcast(Match match){
+    private void ruleChangeBroadcast(Match match,RuleSet finalRuleset){
 
         RuleSet hostRules;
         RuleSet joinedRuleSet;
@@ -225,7 +254,9 @@ public class MainScreen {
             joinedRuleSet = new RuleSet(rp_rbWildformatYour.isSelected(),rp_tfExtraYour.getText());
         }
 
-        ruleController.broadcastRuleChange(match.toString(),hostRules,joinedRuleSet,userDataController.getUser());
+
+
+        ruleController.broadcastRuleChange(match.toString(),hostRules,joinedRuleSet,finalRuleset,userDataController.getUser());
         if(gen_tpFinder.getSelectionModel().getSelectedItem() != gen_tabRules){
             gen_tpFinder.getSelectionModel().select(gen_tabRules);
         }
@@ -238,6 +269,18 @@ public class MainScreen {
             rp_rbWildformatTheir.setSelected(ruleEvent.getHostRuleset().getFormat());
             rp_tfExtraTheir.setText(ruleEvent.getHostRuleset().getExtra());
         }
+        if(ruleEvent.getFinalRuleSet()!=null){
+            rp_rbWildformatAgreed.setSelected(ruleEvent.getFinalRuleSet().getFormat());
+            rp_tfExtraAgreed.setText(ruleEvent.getFinalRuleSet().getExtra());
+
+            if(ruleEvent.getFinalRuleSet().equals(ruleEvent.getJoinedRuleSet())&&ruleEvent.getFinalRuleSet().equals(ruleEvent.getHostRuleset())){
+                Alert a = new Alert(Alert.AlertType.ERROR);
+                a.setTitle("Rules zijn gefixt");
+                a.showAndWait();
+            }
+        }
+
+
 
 
     }
