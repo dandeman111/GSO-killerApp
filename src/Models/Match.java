@@ -38,11 +38,7 @@ public class Match implements Serializable{
     }
 
     public boolean equals(Match match){
-        if(match.id == this.id){
-            return true;
-        }else {
-            return false;
-        }
+        return match.id == this.id;
     }
 
     public int getId() {
